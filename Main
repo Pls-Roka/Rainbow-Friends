@@ -1,0 +1,125 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Rainbow Friends", HidePremium = true, SaveConfig = true, IntroText = "ProFortnitehubv2"})
+
+local Tab = Window:MakeTab({
+	Name = "Hello",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+Tab:AddParagraph("Made By:Sparkz","Discord:Sparkz#8848")
+
+local Tab = Window:MakeTab({
+	Name = "Farm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Get Item!",
+	Callback = function()
+      	    for i,v in pairs(game.workspace.Map_C1.ItemSpawns:GetDescendants()) do
+   if v.name == "ItemSpawn" then
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
+   wait(0.1)
+   end
+end
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Send Item!",
+	Callback = function()
+      	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(371.54364013671875, 45.604129791259766, 132.65687561035156)
+  	end    
+})
+
+local Tab = Window:MakeTab({
+	Name = "ESP",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Item ESP!",
+	Callback = function()
+      	    local itemsOfInterest = Instance.new("Model", workspace)
+itemsOfInterest.Name = "Items of Interest"
+
+for i, v in pairs (workspace:GetChildren()) do
+if v.Name == "Battery" or (v.Name:find("^Block") and v:IsA("Model")) or (v.Name:find("^Food") and v:IsA("Model")) or (v.Name:find("^Fuse") and v:IsA("Model")) then
+v.Parent = itemsOfInterest
+end
+end
+
+local highlight = Instance.new("Highlight")
+highlight.Parent = itemsOfInterest
+highlight.Adornee = itemsOfInterest
+highlight.FillColor = Color3.new(0, 255, 0)
+highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+highlight.FillTransparency = 0.75
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Player ESP!",
+	Callback = function()
+      		print("button pressed")
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Monters ESP!",
+	Callback = function()
+      	    -- Settings --
+
+local settings = {
+
+	fillcolor = Color3.fromRGB(0, 255, 255),
+	filltransparency = 0.75,
+
+	outlinecolor = Color3.fromRGB(0, 255, 255),
+	outlinetransparency = 0,
+}
+
+-- Script --
+
+local plr = game.Players.LocalPlayer
+local highlights = Instance.new("Folder", game:service("CoreGui"))
+
+local function addhighlight(object)
+	local highlight = Instance.new("Highlight", highlights)
+	highlight.Adornee = object
+
+	highlight.FillColor = settings.fillcolor
+	highlight.FillTransparency = settings.filltransparency
+
+	highlight.OutlineColor = settings.outlinecolor
+	highlight.OutlineTransparency = settings.outlinetransparency
+
+	highlight.Adornee.Changed:Connect(function()
+		if not highlight.Adornee or not highlight.Adornee.Parent then
+			highlight:Destroy()
+		end
+	end)
+
+	return highlight
+end
+
+local function addto(object)
+	if object:IsA("Model") then
+		addhighlight(object)
+	end
+end
+
+for _, v in pairs(workspace.Monsters:GetDescendants()) do
+	addto(v)
+end
+
+workspace.Monsters.DescendantAdded:Connect(function(v)
+	addto(v)
+end)
+
+  	end    
+})
